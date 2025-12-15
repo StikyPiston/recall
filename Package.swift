@@ -5,14 +5,8 @@ import PackageDescription
 
 let package = Package(
     name: "recall",
-    products: [
-        .library(
-            name: "recall",
-            targets: ["recall"]
-        ),
-    ],
     targets: [
-        .target(
+        .executableTarget(
             name: "recall"
         ),
     ]
