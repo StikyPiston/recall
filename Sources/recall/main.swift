@@ -36,7 +36,7 @@ func listTasks() {
 }
 
 // Add task
-func addTasks() {
+func addTask() {
 
 }
 
@@ -61,9 +61,9 @@ if args.count > 1 {
             listTasks()
         case "add":
             addTask(args[2], args[3])
-        case "done"
+        case "done":
             completeTask(args[2])
-        case "clear"
+        case "clear":
             clearTasks()
     }
 
