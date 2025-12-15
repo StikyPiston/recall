@@ -29,3 +29,48 @@ func saveTasks(_ tasks: [Task]) throws {
     let data = try encoder.encode(tasks)
     try data.write(to: todoListURL, options: .atomic)
 }
+
+// List tasks
+func listTasks() {
+
+}
+
+// Add task
+func addTasks() {
+
+}
+
+// Complete task
+func completeTask() {
+
+}
+
+// Clear tasks
+func clearTasks() {
+
+}
+
+// CLI entry point
+let args = CommandLine.arguments
+
+if args.count > 1 {
+    let action = args[1]
+
+    switch action {
+        case "list":
+            listTasks()
+        case "add":
+            addTask(args[2], args[3])
+        case "done"
+            completeTask(args[2])
+        case "clear"
+            clearTasks()
+    }
+
+} else {
+    print("Usage: recall <action> <arguments>")
+    print("> list                  - List tasks")
+    print("> add <name> <priority> - Add a Task")
+    print("> done <id>             - Finish a Task")
+    print("> clear                 - Clears all tasks")
+}
