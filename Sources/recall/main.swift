@@ -90,7 +90,12 @@ func completeTask(id: Int) {
 
 // Clear tasks
 func clearTasks() {
-    print("Not implemented")
+    do {
+        try saveTasks([])
+        print("  Cleared all tasks!")
+    } catch {
+        print(" Error clearing tasks: \(error)")
+    }
 }
 
 // CLI entry point
