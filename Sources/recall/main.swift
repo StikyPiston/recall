@@ -6,7 +6,7 @@ import Foundation
 struct Task: Codable {
     let name: String
     let prio: Int
-    let state: Bool
+    var state: Bool
     let id: Int
 }
 
@@ -85,7 +85,18 @@ func addTask(name: String, prio: Int) {
 
 // Complete task
 func completeTask(id: Int) {
-    print("Not implemented")
+    do {
+        var tasks = loadTasks()
+        
+        if let index = tasks.firstIndex(where: { $0.id == id }) {
+            tasks[index].state = true
+            try saveTasks(tasks)
+        } else {
+            print(" Task with ID \(id) does not exist.")
+        }
+    } catch {
+        print(" Failed to complete task: \(error)")
+    }
 }
 
 // Clear tasks
