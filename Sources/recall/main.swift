@@ -16,7 +16,7 @@ let homeDir        = fileManager.homeDirectoryForCurrentUser
 let todoListURL    = homeDir.appendingPathComponent(".recall")
 
 // Load todolist
-func loadTasks() -> Task {
+func loadTasks() -> [Task] {
     do {
     let data = try Data(contentsOf: todoListURL)
     return try JSONDecoder().decode(Task.self, from: data)
@@ -84,12 +84,12 @@ func addTask(name: String, prio: Int) {
 
 // Complete task
 func completeTask() {
-
+    print("Not implemented")
 }
 
 // Clear tasks
 func clearTasks() {
-
+    print("Not implemented")
 }
 
 // CLI entry point
@@ -102,7 +102,7 @@ if args.count > 1 {
         case "list":
             listTasks()
         case "add":
-            addTask(args[2], Int(args[3]))
+            addTask(name: args[2], prio: Int(args[3]))
         case "done":
             completeTask(args[2])
         case "clear":
