@@ -16,10 +16,13 @@ let homeDir        = fileManager.homeDirectoryForCurrentUser
 let todoListURL    = homeDir.appendingPathComponent(".recall")
 
 // Load todolist
-func loadTasks() throws -> [Task] {
+func loadTasks() -> Task {
+    do {
     let data = try Data(contentsOf: todoListURL)
-    let decoder = JSONDecoder()
-    return try decoder.decode([Task].self, from: data)
+    return try JSONDecoder().decode(Task.self, from: data)
+    } catch {
+        print(" Error loading tasks: \(error)")
+    }
 }
 
 // Save todolist
@@ -33,9 +36,19 @@ func saveTasks(_ tasks: [Task]) throws {
 
 // List tasks
 func listTasks() {
-    let tasks = loadTasks()
+    print(" Tasks: ")
+    var tasks = loadTasks()
+    var stat: String = ""
 
+    for task in tasks {
+        if task.state == true {
+            stat = "󰄲 "
+        } else {
+            stat = " "
+        }
 
+        print("\(task.id) \(stat): \(task.name) (\(task.prio))")
+    }
 }
 
 // Add task
@@ -89,7 +102,7 @@ if args.count > 1 {
         case "list":
             listTasks()
         case "add":
-            addTask(args[2], args[3])
+            addTask(args[2], Int(args[3]))
         case "done":
             completeTask(args[2])
         case "clear":
