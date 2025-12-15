@@ -37,18 +37,23 @@ func saveTasks(_ tasks: [Task]) throws {
 
 // List tasks
 func listTasks() {
-    print(" Tasks: ")
     let tasks = loadTasks()
-    var stat: String = ""
+    
+    if tasks.isEmpty == false  {
+        print(" Tasks: ")
+        var stat: String = ""
 
-    for task in tasks {
-        if task.state == true {
-            stat = "󰄲 "
-        } else {
-            stat = " "
+        for task in tasks {
+            if task.state == true {
+                stat = "󰄲 "
+            } else {
+                stat = " "
+            }
+
+            print("\(task.id) \(stat): \(task.name) (\(task.prio))")
         }
-
-        print("\(task.id) \(stat): \(task.name) (\(task.prio))")
+    } else {
+        print("󰄭 All tasks done!")
     }
 }
 
