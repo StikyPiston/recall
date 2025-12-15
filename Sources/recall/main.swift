@@ -22,3 +22,10 @@ func loadTasks() throws -> [Task] {
 }
 
 // Save todolist
+func saveTasks(_ tasks: [Task]) throws {
+    let encoder = JSONEncoder()
+    encoder.outputFormatting = .prettyPrinted
+
+    let data = try encoder.encode(tasks)
+    try data.write(to: todoListURL, options: .atomic)
+}
