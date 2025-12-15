@@ -18,10 +18,11 @@ let todoListURL    = homeDir.appendingPathComponent(".recall")
 // Load todolist
 func loadTasks() -> [Task] {
     do {
-    let data = try Data(contentsOf: todoListURL)
-    return try JSONDecoder().decode(Task.self, from: data)
+        let data = try Data(contentsOf: todoListURL)
+        return try JSONDecoder().decode([Task].self, from: data)
     } catch {
         print(" Error loading tasks: \(error)")
+        return []
     }
 }
 
@@ -37,7 +38,7 @@ func saveTasks(_ tasks: [Task]) throws {
 // List tasks
 func listTasks() {
     print(" Tasks: ")
-    var tasks = loadTasks()
+    let tasks = loadTasks()
     var stat: String = ""
 
     for task in tasks {
@@ -83,7 +84,7 @@ func addTask(name: String, prio: Int) {
 }
 
 // Complete task
-func completeTask() {
+func completeTask(id: Int) {
     print("Not implemented")
 }
 
@@ -102,11 +103,19 @@ if args.count > 1 {
         case "list":
             listTasks()
         case "add":
-            addTask(name: args[2], prio: Int(args[3]))
+            addTask(name: args[2], prio: Int(args[3]) ?? 1)
         case "done":
-            completeTask(args[2])
+            completeTask(id: Int(args[2]) ?? 1)
         case "clear":
             clearTasks()
+        case "help":
+            print("Usage: recall <action> <arguments>")
+            print("> list                  - List tasks")
+            print("> add <name> <priority> - Add a Task")
+            print("> done <id>             - Finish a Task")
+            print("> clear                 - Clears all tasks")
+        default:
+            print("Unknown command. Run recall help for help")
     }
 
 } else {
