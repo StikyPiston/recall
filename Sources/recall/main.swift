@@ -3,25 +3,22 @@
 import Foundation
 
 // Todolist type
-struct List: Codable {
+struct Task: Codable {
     let name: String
     let prio: Int
     let state: Bool
 }
 
 // Paths
-let fileManager = FileManager.default
-let homeDir     = fileManager.homeDirectoryForCurrentUser
-let todoList    = homeDir.appendingPathComponent(".recall")
+let fileManager    = FileManager.default
+let homeDir        = fileManager.homeDirectoryForCurrentUser
+let todoListURL    = homeDir.appendingPathComponent(".recall")
 
 // Load todolist
-func loadList() -> List {
-    if fileManager.fileExists(atPath: todoList.path) {
-        do {
-            let data = try Data(contentsOf: todoList)
-            return try JSONDecoder().decode(List.self, from: data)
-        } catch {
-            print("Failed to load todolist: \(error)")
-        }
-    }
+func loadTasks() throws -> [Task] {
+    let data = try Data(contentsOf: todoListURL)
+    let decoder = JSONDecoder()
+    return try decoder.decode([Task].self, from: data)
 }
+
+// Save todolist
