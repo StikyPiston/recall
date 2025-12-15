@@ -7,6 +7,7 @@ struct Task: Codable {
     let name: String
     let prio: Int
     let state: Bool
+    let id: Int
 }
 
 // Paths
@@ -32,12 +33,40 @@ func saveTasks(_ tasks: [Task]) throws {
 
 // List tasks
 func listTasks() {
+    let tasks = loadTasks()
+
 
 }
 
 // Add task
-func addTask() {
+func addTask(name: String, prio: Int) {
+    guard (1...3).contains(prio) else {
+        print(" Priority must be between 1 and 3")
+        return 
+    }
 
+    var tasks = loadTasks()
+
+    let usedIDs = Set(tasks.map { $0.id })
+    var newID = 0
+    while usedIDs.contains(newID) {
+        newID += 1
+    }
+
+    let newTask = Task(
+        name: name,
+        prio: prio,
+        state: false,
+        id: newID,
+    )
+
+    tasks.append(newTask)
+
+    do {
+        try saveTasks(tasks)
+    } catch {
+        print(" Failed to save tasks: \(error)")
+    }
 }
 
 // Complete task
