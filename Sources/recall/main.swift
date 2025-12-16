@@ -10,10 +10,16 @@ struct Task: Codable {
     let id: Int
 }
 
+// XP type
+struct XP: Codable {
+    var XP: Int
+}
+
 // Paths
 let fileManager    = FileManager.default
 let homeDir        = fileManager.homeDirectoryForCurrentUser
 let todoListURL    = homeDir.appendingPathComponent(".recall")
+let xpURL          = homeDir.appendingPathComponent(".recall_xp")
 
 // Load todolist
 func loadTasks() -> [Task] {
@@ -26,6 +32,17 @@ func loadTasks() -> [Task] {
     }
 }
 
+// Load XP File
+func loadXP() -> XP {
+    do {
+        let data = try Data(contentsOf: xpURL)
+        return try JSONDecoder().decode(XP.self, from: data)
+    } catch {
+        // First run or corrupted file → start fresh
+        return XP(XP: 0)
+    }
+}
+
 // Save todolist
 func saveTasks(_ tasks: [Task]) throws {
     let encoder = JSONEncoder()
@@ -33,6 +50,15 @@ func saveTasks(_ tasks: [Task]) throws {
 
     let data = try encoder.encode(tasks)
     try data.write(to: todoListURL, options: .atomic)
+}
+
+// Save XP
+func saveXP(_ xp: XP) throws {
+    let encoder = JSONEncoder()
+    encoder.outputFormatting = .prettyPrinted
+
+    let data = try encoder.encode(xp)
+    try data.write(to: xpURL, options: .atomic)
 }
 
 // List tasks
@@ -54,6 +80,18 @@ func listTasks() {
         }
     } else {
         print("󰄭 All tasks done!")
+    }
+}
+
+// Increase XP
+func increaseXP(_ amount: Int) {
+    var xp = loadXP()
+    xp.XP += amount
+
+    do {
+        try saveXP(xp)
+    } catch {
+        print(" Failed to save XP: \(error)")
     }
 }
 
@@ -96,6 +134,9 @@ func completeTask(id: Int) {
         if let index = tasks.firstIndex(where: { $0.id == id }) {
             tasks[index].state = true
             try saveTasks(tasks)
+
+            let reward = tasks[index].prio * 10
+            increaseXP(reward)
         } else {
             print(" Task with ID \(id) does not exist.")
         }
