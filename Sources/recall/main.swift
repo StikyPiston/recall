@@ -210,11 +210,11 @@ if args.count > 1 {
             print(" XP: \(xp.XP)")
         case "help":
             print("Usage: recall <action> <arguments>")
-            print("> list                  - List tasks")
             print("> add <name> <priority> - Add a Task")
-            print("> done <id>             - Finish a Task")
-            print("> undo <id>             - Undo a Task")
             print("> clear                 - Clears all tasks")
+            print("> done <id>             - Finish a Task")
+            print("> list                  - List tasks")
+            print("> undo <id>             - Undo a Task")
             print("> xp                    - Prints XP amount")
         default:
             print("Unknown command. Run recall help for help")
@@ -222,10 +222,10 @@ if args.count > 1 {
 
 } else {
     print("Usage: recall <action> <arguments>")
-    print("> list                  - List tasks")
     print("> add <name> <priority> - Add a Task")
-    print("> done <id>             - Finish a Task")
-    print("> undo <id>             - Undo a Task")
     print("> clear                 - Clears all tasks")
+    print("> done <id>             - Finish a Task")
+    print("> list                  - List tasks")
+    print("> undo <id>             - Undo a Task")
     print("> xp                    - Prints XP amount")
 }
