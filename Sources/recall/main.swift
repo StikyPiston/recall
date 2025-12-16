@@ -95,6 +95,18 @@ func increaseXP(_ amount: Int) {
     }
 }
 
+// Decrease XP
+func decreaseXP(_ amount: Int) {
+    var xp = loadXP()
+    xp.XP -= amount
+
+    do {
+        try saveXP(xp)
+    } catch {
+        print(" Failed to save XP: \(error)")
+    }
+}
+
 // Add task
 func addTask(name: String, prio: Int) {
     guard (1...3).contains(prio) else {
@@ -170,12 +182,16 @@ if args.count > 1 {
             completeTask(id: Int(args[2]) ?? 1)
         case "clear":
             clearTasks()
+        case "xp":
+            let xp = loadXP()
+            print(" XP: \(xp.XP)")
         case "help":
             print("Usage: recall <action> <arguments>")
             print("> list                  - List tasks")
             print("> add <name> <priority> - Add a Task")
             print("> done <id>             - Finish a Task")
             print("> clear                 - Clears all tasks")
+            print("> xp                    - Prints XP amount")
         default:
             print("Unknown command. Run recall help for help")
     }
@@ -186,4 +202,5 @@ if args.count > 1 {
     print("> add <name> <priority> - Add a Task")
     print("> done <id>             - Finish a Task")
     print("> clear                 - Clears all tasks")
+    print("> xp                    - Prints XP amount")
 }
