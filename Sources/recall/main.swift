@@ -149,11 +149,32 @@ func completeTask(id: Int) {
 
             let reward = tasks[index].prio * 10
             increaseXP(reward)
+
+            print("󱕣 Earned \(reward) XP")
         } else {
             print(" Task with ID \(id) does not exist.")
         }
     } catch {
         print(" Failed to complete task: \(error)")
+    }
+}
+
+// Undo task
+func undoTask(id: Int) {
+    do {
+        var tasks = loadTasks()
+
+        if let index = tasks.firstIndex(where: { $0.id == id }) {
+            tasks[index].state = false
+            try saveTasks(tasks)
+            
+            let penalty = tasks[index].prio * 10
+            decreaseXP(penalty)
+
+            print("󰓑 Lost \(penalty) XP")
+        }
+    } catch {
+        print(" Failed to undo task: \(error)")
     }
 }
 
@@ -180,6 +201,8 @@ if args.count > 1 {
             addTask(name: args[2], prio: Int(args[3]) ?? 1)
         case "done":
             completeTask(id: Int(args[2]) ?? 1)
+        case "undo":
+            undoTask(id: Int(args[2]) ?? 1)
         case "clear":
             clearTasks()
         case "xp":
@@ -190,6 +213,7 @@ if args.count > 1 {
             print("> list                  - List tasks")
             print("> add <name> <priority> - Add a Task")
             print("> done <id>             - Finish a Task")
+            print("> undo <id>             - Undo a Task")
             print("> clear                 - Clears all tasks")
             print("> xp                    - Prints XP amount")
         default:
@@ -201,6 +225,7 @@ if args.count > 1 {
     print("> list                  - List tasks")
     print("> add <name> <priority> - Add a Task")
     print("> done <id>             - Finish a Task")
+    print("> undo <id>             - Undo a Task")
     print("> clear                 - Clears all tasks")
     print("> xp                    - Prints XP amount")
 }
