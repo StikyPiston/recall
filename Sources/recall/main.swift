@@ -188,6 +188,18 @@ func clearTasks() {
     }
 }
 
+// Clear completed tasks
+func clearCompletedTasks() {
+    do {
+        let tasks = loadTasks()
+        let remainingTasks = tasks.filter({ $0.state == false })
+
+        try saveTasks(remainingTasks)
+    } catch {
+        print(" Error removing completed tasks: \(error)")
+    }
+}
+
 // CLI entry point
 let args = CommandLine.arguments
 
@@ -208,10 +220,13 @@ if args.count > 1 {
         case "xp":
             let xp = loadXP()
             print(" XP: \(xp.XP)")
+        case "clearcomplete": 
+            clearCompletedTasks()
         case "help":
             print("Usage: recall <action> <arguments>")
             print("> add <name> <priority> - Add a Task")
             print("> clear                 - Clears all tasks")
+            print("> clearcomplete         - Clears completed tasks")
             print("> done <id>             - Finish a Task")
             print("> help                  - Displays this help message")
             print("> list                  - List tasks")
@@ -225,6 +240,7 @@ if args.count > 1 {
     print("Usage: recall <action> <arguments>")
     print("> add <name> <priority> - Add a Task")
     print("> clear                 - Clears all tasks")
+    print("> clearcomplete         - Clears completed tasks")
     print("> done <id>             - Finish a Task")
     print("> help                  - Displays this help message")
     print("> list                  - List tasks")
