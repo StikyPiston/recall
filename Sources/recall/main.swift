@@ -220,7 +220,7 @@ if args.count > 1 {
         case "xp":
             let xp = loadXP()
             print(" XP: \(xp.XP)")
-        case "clearcomplete": 
+        case "clearcompleted": 
             clearCompletedTasks()
         case "help":
             print("Usage: recall <action> <arguments>")
