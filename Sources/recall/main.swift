@@ -195,6 +195,7 @@ func clearCompletedTasks() {
         let remainingTasks = tasks.filter({ $0.state == false })
 
         try saveTasks(remainingTasks)
+        print(" Cleared completed tasks!")
     } catch {
         print(" Error removing completed tasks: \(error)")
     }
