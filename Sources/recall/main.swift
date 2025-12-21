@@ -29,6 +29,16 @@ let homeDir        = fileManager.homeDirectoryForCurrentUser
 let todoListURL    = homeDir.appendingPathComponent(".recall")
 let xpURL          = homeDir.appendingPathComponent(".recall_xp")
 
+// Get colour based on task priority
+func colourForPriority(_ prio: Int) -> String {
+    switch prio {
+        case 1: return ANSI.green
+        case 2: return ANSI.yellow
+        case 3: return ANSI.red
+        default: return ANSI.reset
+    }
+}
+
 // Load todolist
 func loadTasks() -> [Task] {
     do {
@@ -83,8 +93,10 @@ func listTasks() {
             } else {
                 stat = " "
             }
+            
+            let colour = colourForPriority(task.prio)
 
-            print("\(task.id) \(stat): \(task.name) (\(task.prio))")
+            print("\(colour)\(task.id) \(stat): \(task.name) (\(task.prio))\(ANSI.reset)")
         }
     } else {
         print("󰄭 All tasks done!")
