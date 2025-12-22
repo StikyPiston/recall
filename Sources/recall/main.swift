@@ -29,6 +29,22 @@ let homeDir        = fileManager.homeDirectoryForCurrentUser
 let todoListURL    = homeDir.appendingPathComponent(".recall")
 let xpURL          = homeDir.appendingPathComponent(".recall_xp")
 
+// Create files if they do not exist
+func ensureFileExists(at url: URL, defaultContents: String = "[]") {
+    if FileManager.default.fileExists(atPath: url.path) == false {
+        do {
+            try defaultContents
+                .data(using: .utf8)?
+                .write(to: url, options: .atomic)
+        } catch {
+            print(" Failed to create \(url.lastPathComponent): \(error)")
+        }
+    }
+}
+
+ensureFileExists(at: todoListURL)
+ensureFileExists(at: xpURL)
+
 // Get colour based on task priority
 func colourForPriority(_ prio: Int) -> String {
     switch prio {
