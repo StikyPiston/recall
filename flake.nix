@@ -1,5 +1,5 @@
 {
-  description = "Recall devshell and package";
+  description = "rust devshell and package, created by scaffolder";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -12,37 +12,30 @@
         pkgs = import nixpkgs { inherit system; };
       in {
         devShells.default = pkgs.mkShell {
-          name = "recall-devshell";
+          name = "rust-devshell";
 
           packages = with pkgs; [
-            go
-            gopls
-            gotools
-            delve
+            cargo
+            rustc
+            rustfmt
+            rust-analyzer
+            clippy
+            pkg-config
           ];
         };
 
-        packages.recall = pkgs.buildGoModule {
-          pname = "recall";
-          version = "2026.07.15-a";
+        packages.recall = pkgs.rustPlatform.buildRustPackage {
+          name = "recall";
+          version = "2026.06.15-a";
 
-          src = self;
+          src = ./.;
 
-          vendorHash = "sha256-g+39YPEaohp4BJjwRXiqUY2viZPimvf1pOjtyAFOjNY=";
-
-          subPackages = [ "." ];
-          ldflags = [ "-s" "-w" ];
-
-          meta = with pkgs.lib; {
-            description = "A minimal to-do list program with a few amenities";
-            license = licenses.mit;
-            platforms = platforms.all;
-          };
+          cargoLock.lockFile = ./Cargo.lock;
         };
 
         apps.recall = {
           type = "app";
-          program = "${self.packages.${system}.recall}/bin/recall";
+          program = "${self.packages.${pkgs.stdenv.hostPlatform.system}.recall}/bin/recall";
         };
       });
 }

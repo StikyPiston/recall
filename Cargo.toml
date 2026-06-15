@@ -1,0 +1,6 @@
+[package]
+name = "recall"
+version = "2026.06.15-a"
+edition = "2024"
+
+[dependencies]
