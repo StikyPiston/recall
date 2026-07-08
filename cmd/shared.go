@@ -10,10 +10,11 @@ import (
 )
 
 type Task struct {
-	Name  string `json:"name"`
-	Prio  int    `json:"prio"`
-	State int    `json:"state"`
-	ID    int    `json:"id"`
+	Name    string `json:"name"`
+	Prio    int    `json:"prio"`
+	State   int    `json:"state"`
+	ID      int    `json:"id"`
+	Project string `json:"project"`
 }
 
 type XP struct {
