@@ -24,6 +24,10 @@ var listCmd = &cobra.Command{
 		var backBurner []Task
 
 		for _, t := range tasks {
+			if t.Project == "" {
+				t.Project = "*"
+			}
+
 			switch t.State {
 			case 0:
 				pending = append(pending, t)
@@ -46,9 +50,10 @@ var listCmd = &cobra.Command{
 			stat := "󰄲 "
 
 			line := fmt.Sprintf(
-				"%d %s: %s (%d)\n",
+				"%d %s: [%s] %s (%d)\n",
 				t.ID,
 				stat,
+				t.Project,
 				t.Name,
 				t.Prio,
 			)
@@ -72,9 +77,10 @@ var listCmd = &cobra.Command{
 			stat := "󰥔 "
 
 			line := fmt.Sprintf(
-				"%d %s: %s (%d)\n",
+				"%d %s: [%s] %s (%d)\n",
 				t.ID,
 				stat,
+				t.Project,
 				t.Name,
 				t.Prio,
 			)
@@ -98,9 +104,10 @@ var listCmd = &cobra.Command{
 			stat := " "
 
 			line := fmt.Sprintf(
-				"%d %s: %s (%d)\n",
+				"%d %s: [%s] %s (%d)\n",
 				t.ID,
 				stat,
+				t.Project,
 				t.Name,
 				t.Prio,
 			)
@@ -124,9 +131,10 @@ var listCmd = &cobra.Command{
 			stat := " "
 
 			line := fmt.Sprintf(
-				"%d %s: %s (%d)\n",
+				"%d %s: [%s] %s (%d)\n",
 				t.ID,
 				stat,
+				t.Project,
 				t.Name,
 				t.Prio,
 			)

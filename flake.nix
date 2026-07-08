@@ -24,7 +24,7 @@
 
         packages.recall = pkgs.buildGoModule {
           pname = "recall";
-          version = "2026.05.15-a";
+          version = "2026.07.08-a";
 
           src = self;
 

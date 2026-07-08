@@ -5,6 +5,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var project string
+
 var addCmd = &cobra.Command{
 	Use:   "add <name> <priority>",
 	Short: "Add a task",
@@ -31,10 +33,11 @@ var addCmd = &cobra.Command{
 		}
 
 		tasks = append(tasks, Task{
-			Name:  name,
-			Prio:  prio,
-			State: 0,
-			ID:    id,
+			Name:    name,
+			Prio:    prio,
+			State:   0,
+			ID:      id,
+			Project: project,
 		})
 
 		_ = saveTasks(tasks)
@@ -43,4 +46,5 @@ var addCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(addCmd)
+	addCmd.Flags().StringVarP(&project, "project", "p", "*", "optionally set a project for the task")
 }
