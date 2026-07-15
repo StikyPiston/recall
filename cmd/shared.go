@@ -24,9 +24,23 @@ type XP struct {
 
 var (
 	homeDir, _ = os.UserHomeDir()
-	todoPath   = filepath.Join(homeDir, ".recall")
 	xpPath     = filepath.Join(homeDir, ".recall_xp")
 )
+
+func todoPath() string {
+	cwd, err := os.Getwd()
+	if err != nil {
+		return filepath.Join(homeDir, ".recall")
+	}
+
+	localPath := filepath.Join(cwd, "TODO.recall")
+
+	if _, err := os.Stat(localPath); err == nil {
+		return localPath
+	}
+
+	return filepath.Join(homeDir, ".recall")
+}
 
 func ensureFile(path string, content []byte) {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
@@ -35,12 +49,12 @@ func ensureFile(path string, content []byte) {
 }
 
 func initStorage() {
-	ensureFile(todoPath, []byte("[]"))
+	ensureFile(todoPath(), []byte("[]"))
 	ensureFile(xpPath, []byte(`{"XP":0,"last_checked":0}`))
 }
 
 func loadTasks() []Task {
-	data, err := os.ReadFile(todoPath)
+	data, err := os.ReadFile(todoPath())
 	if err != nil {
 		return []Task{}
 	}
@@ -52,7 +66,7 @@ func loadTasks() []Task {
 
 func saveTasks(tasks []Task) error {
 	data, _ := json.MarshalIndent(tasks, "", "  ")
-	return os.WriteFile(todoPath, data, 0644)
+	return os.WriteFile(todoPath(), data, 0644)
 }
 
 func loadXP() XP {
