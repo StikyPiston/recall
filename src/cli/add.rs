@@ -9,10 +9,10 @@ pub fn add(name: String, priority: u8, project: Option<String>) {
     };
 
     tasks.push(Task {
-        name: name,
+        name,
         prio: priority,
         state: 0,
-        id: id,
+        id,
         project: match project {
             Some(p) => p,
             None => "*".to_string(),

@@ -16,7 +16,7 @@ pub fn list() {
     let mut back_burner: Vec<Task> = Vec::new();
 
     for mut t in tasks {
-        if t.project == "".to_string() {
+        if t.project.is_empty() {
             t.project = "*".to_string();
         }
 

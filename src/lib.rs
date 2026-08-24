@@ -31,7 +31,7 @@ pub fn save_recall(path: &str, tasks: Vec<Task>) {
 // MARK: directory helpers
 pub fn home_dir() -> String {
     let dir = dirs::home_dir();
-    return dir.map(|p| p.to_string_lossy().into_owned()).unwrap();
+    dir.map(|p| p.to_string_lossy().into_owned()).unwrap()
 }
 
 pub fn todo_path() -> String {
