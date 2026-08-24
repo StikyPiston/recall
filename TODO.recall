@@ -72,7 +72,7 @@
   {
     "name": "shared .recall-file parsing for cli and eventual gui",
     "prio": 3,
-    "state": 1,
+    "state": 2,
     "id": 10,
     "project": "lib"
   },
