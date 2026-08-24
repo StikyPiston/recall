@@ -19,7 +19,9 @@ enum Commands {
     Add {
         name: String,
         #[arg(value_parser = clap::value_parser!(u8).range(1..=3))]
-        priority: u8
+        priority: u8,
+        #[arg(short, long)]
+        project: Option<String>
     },
     Backburner { id: u32 },
     Busy { id: u32 },
@@ -36,10 +38,10 @@ fn main() {
     let cli = Cli::parse();
 
     match &cli.command {
-        Commands::Add { name, priority } => {
+        Commands::Add { name, priority, project } => {
             println!(
-                "called 'add' with name as {} and priority as {}",
-                name, priority
+                "called 'add' with name as {}, priority as {}, and project as {:#?}",
+                name, priority, project
             );
         }
         Commands::Backburner { id } => {

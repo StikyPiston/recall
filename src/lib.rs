@@ -6,6 +6,7 @@ pub struct Task {
     pub name: String,
     pub prio: u8,
     pub state: u8,
+    pub project: String,
 }
 
 #[derive(Deserialize, Serialize)]

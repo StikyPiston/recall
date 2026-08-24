@@ -11,8 +11,24 @@ pub fn list() {
         return
     }
 
-    let _pending: Vec<Task> = Vec::new();
-    let _busy: Vec<Task> = Vec::new();
-    let _done: Vec<Task> = Vec::new();
-    let _back_burner: Vec<Task> = Vec::new();
+    let mut pending: Vec<Task> = Vec::new();
+    let mut busy: Vec<Task> = Vec::new();
+    let mut done: Vec<Task> = Vec::new();
+    let mut back_burner: Vec<Task> = Vec::new();
+
+    for mut t in tasks {
+        if t.project == "".to_string() {
+            t.project = "*".to_string();
+        }
+
+        match t.state {
+            0 => pending.push(t),
+            1 => busy.push(t),
+            2 => done.push(t),
+            3 => back_burner.push(t),
+            _ => panic!("Priorities cannot be more than three"),
+        }
+    }
+
+    println!("{}", " Tasks:".white());
 }
