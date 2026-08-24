@@ -15,7 +15,7 @@ pub struct Task {
 
 #[derive(Deserialize, Serialize)]
 pub struct XP {
-    pub xp: u32,
+    pub xp: i32,
     pub last_checked: u64,
 }
 
@@ -82,12 +82,12 @@ pub fn save_xp(xp: XP) {
 
 pub fn increase_xp(amount: u32) {
     let mut xp = load_xp();
-    xp.xp += amount;
+    xp.xp += amount as i32;
     save_xp(xp);
 }
 
 pub fn decrease_xp(amount: u32) {
     let mut xp = load_xp();
-    xp.xp -= amount;
+    xp.xp -= amount as i32;
     save_xp(xp);
 }
