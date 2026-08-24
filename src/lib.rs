@@ -1,19 +1,17 @@
 use serde::{Deserialize, Serialize};
 use std::fs;
 
-mod cli;
-
 #[derive(Deserialize, Serialize)]
 pub struct Task {
-    name: String,
-    prio: u8,
-    state: u8,
+    pub name: String,
+    pub prio: u8,
+    pub state: u8,
 }
 
 #[derive(Deserialize, Serialize)]
 pub struct XP {
-    xp: u32,
-    last_checked: u64,
+    pub xp: u32,
+    pub last_checked: u64,
 }
 
 pub fn load_recall(path: &str) -> Vec<Task> {

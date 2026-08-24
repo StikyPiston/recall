@@ -32,6 +32,7 @@ enum Commands {
 }
 
 fn main() {
+    color_eyre::install().unwrap();
     let cli = Cli::parse();
 
     match &cli.command {
