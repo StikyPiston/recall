@@ -1,20 +1,7 @@
-use dirs;
 use std::fs;
 use std::path::Path;
 
-// MARK: directory helpers
-pub fn home_dir() -> String {
-    let dir = dirs::home_dir();
-    return dir.map(|p| p.to_string_lossy().into_owned()).unwrap();
-}
-
-pub fn todo_path() -> String {
-    home_dir() + "/.recall"
-}
-
-pub fn xp_path() -> String {
-    home_dir() + "/.recall_xp"
-}
+use recall::{home_dir, todo_path, xp_path};
 
 // MARK: save/load helpers
 pub fn ensure_file(path: &str, content: &[u8]) {

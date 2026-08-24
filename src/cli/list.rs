@@ -1,10 +1,9 @@
 use colored::Colorize;
 
-use crate::help::home_dir;
-use recall::{load_recall, Task};
+use recall::{load_recall, Task, todo_path};
 
 pub fn list() {
-    let tasks: Vec<Task> = load_recall(&(home_dir() + "/.recall"));
+    let tasks: Vec<Task> = load_recall(&todo_path());
 
     if tasks.is_empty() {
         println!("{}", "󰄭 All tasks done!".green());

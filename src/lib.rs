@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use std::fs;
+use std::{env, fs};
 
 #[derive(Deserialize, Serialize)]
 pub struct Task {
@@ -26,4 +26,28 @@ pub fn load_recall(path: &str) -> Vec<Task> {
 pub fn save_recall(path: &str, tasks: Vec<Task>) {
     let json = serde_json::to_string_pretty(&tasks).unwrap();
     fs::write(path, json).unwrap();
+}
+
+// MARK: directory helpers
+pub fn home_dir() -> String {
+    let dir = dirs::home_dir();
+    return dir.map(|p| p.to_string_lossy().into_owned()).unwrap();
+}
+
+pub fn todo_path() -> String {
+    match env::current_dir() {
+        Ok(p) => {
+            let p = p.to_string_lossy().into_owned();
+            match fs::exists(p.clone() + "/TODO.recall") {
+                Ok(true) => (p + "/TODO.recall").to_string(),
+                Ok(false) => home_dir() + "/.recall",
+                Err(_) => home_dir() + "/.recall",
+            }
+        },
+        Err(_) => home_dir() + "/.recall"
+    }
+}
+
+pub fn xp_path() -> String {
+    home_dir() + "/.recall_xp"
 }
