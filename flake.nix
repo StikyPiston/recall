@@ -4,12 +4,18 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    naersk = {
+      url = "github:nix-community/naersk";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
+  outputs = { self, nixpkgs, flake-utils, naersk }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
+
+        naersk' = pkgs.callPackage naersk {};
       in {
         devShells.default = pkgs.mkShell {
           name = "rust-devshell";
@@ -24,13 +30,8 @@
           ];
         };
 
-        packages.recall = pkgs.rustPlatform.buildRustPackage {
-          name = "recall";
-          version = "2026.06.15-a";
-
+        packages.recall = naersk'.buildPackage {
           src = ./.;
-
-          cargoLock.lockFile = ./Cargo.lock;
         };
 
         apps.recall = {
