@@ -16,8 +16,11 @@ pub fn undo(id: u32) {
             if prev_state == 2 {
                 let penalty = t.prio * 10;
                 decrease_xp(penalty as u32);
-                println!("{}", format!("󰓑 Lost {penalty} XP").yellow())
+                println!("{}", format!("󰓑 Lost {penalty} XP").yellow());
+                return;
             }
         }
     }
+
+    println!("{}", " Task does not exist".red())
 }

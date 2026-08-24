@@ -13,7 +13,10 @@ pub fn done(id: u32) {
 
             let reward = t.prio * 10;
             increase_xp(reward as u32);
-            println!("{}", format!("󱕣 Earned {reward} XP").green())
+            println!("{}", format!("󱕣 Earned {reward} XP").green());
+            return;
         }
     }
+
+    println!("{}", " Task does not exist".red())
 }

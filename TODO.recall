@@ -49,13 +49,6 @@
     "project": "cli"
   },
   {
-    "name": "root",
-    "prio": 1,
-    "state": 0,
-    "id": 7,
-    "project": "cli"
-  },
-  {
     "name": "undo",
     "prio": 1,
     "state": 2,
