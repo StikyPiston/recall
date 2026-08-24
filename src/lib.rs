@@ -1,6 +1,8 @@
 use serde::{Deserialize, Serialize};
 use std::fs;
 
+mod cli;
+
 #[derive(Deserialize, Serialize)]
 pub struct Task {
     name: String,
