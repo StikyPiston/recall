@@ -15,7 +15,11 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Commands {
-    Add { name: String, priority: u16 },
+    Add {
+        name: String,
+        #[arg(value_parser = clap::value_parser!(u8).range(1..=3))]
+        priority: u8
+    },
     Backburner { id: u32 },
     Busy { id: u32 },
     Clean,
