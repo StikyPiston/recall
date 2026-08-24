@@ -6,6 +6,7 @@ pub struct Task {
     pub name: String,
     pub prio: u8,
     pub state: u8,
+    pub id: u32,
     pub project: String,
 }
 
