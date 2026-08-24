@@ -1,7 +1,10 @@
 use serde::{Deserialize, Serialize};
-use std::{env, fs};
+use std::{
+    env, fs,
+    time::{SystemTime, UNIX_EPOCH},
+};
 
-#[derive(Deserialize, Serialize)]
+#[derive(Clone, Deserialize, Serialize)]
 pub struct Task {
     pub name: String,
     pub prio: u8,
@@ -14,6 +17,18 @@ pub struct Task {
 pub struct XP {
     pub xp: u32,
     pub last_checked: u64,
+}
+
+impl Default for XP {
+    fn default() -> Self {
+        Self {
+            xp: 0,
+            last_checked: SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .unwrap()
+                .as_secs(),
+        }
+    }
 }
 
 pub fn load_recall(path: &str) -> Vec<Task> {
@@ -48,6 +63,31 @@ pub fn todo_path() -> String {
     }
 }
 
+// MARK: xp
 pub fn xp_path() -> String {
     home_dir() + "/.recall_xp"
+}
+
+pub fn load_xp() -> XP {
+    fs::read_to_string(xp_path())
+        .ok()
+        .and_then(|s| serde_json::from_str(&s).ok())
+        .unwrap_or_default()
+}
+
+pub fn save_xp(xp: XP) {
+    let json = serde_json::to_string_pretty(&xp).unwrap();
+    fs::write(xp_path(), json).unwrap();
+}
+
+pub fn increase_xp(amount: u32) {
+    let mut xp = load_xp();
+    xp.xp += amount;
+    save_xp(xp);
+}
+
+pub fn decrease_xp(amount: u32) {
+    let mut xp = load_xp();
+    xp.xp -= amount;
+    save_xp(xp);
 }
