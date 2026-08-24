@@ -1,22 +1,6 @@
 use dirs;
-use serde::{Deserialize, Serialize};
 use std::fs;
 use std::path::Path;
-
-// MARK: types
-#[derive(Serialize, Deserialize)]
-struct Task {
-    name: String,
-    prio: u16,
-    state: u16,
-    id: u32,
-}
-
-#[derive(Serialize, Deserialize)]
-struct XP {
-    xp: u32,
-    last_checked: u64,
-}
 
 // MARK: directory helpers
 pub fn home_dir() -> String {

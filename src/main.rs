@@ -18,15 +18,23 @@ enum Commands {
     Add {
         name: String,
         #[arg(value_parser = clap::value_parser!(u8).range(1..=3))]
-        priority: u8
+        priority: u8,
     },
-    Backburner { id: u32 },
-    Busy { id: u32 },
+    Backburner {
+        id: u32,
+    },
+    Busy {
+        id: u32,
+    },
     Clean,
     Clear,
-    Done { id: u32 },
+    Done {
+        id: u32,
+    },
     List,
-    Undo { id: u32 },
+    Undo {
+        id: u32,
+    },
     Xp,
 }
 
