@@ -55,9 +55,7 @@ fn main() {
         Commands::Backburner { id } => {
             println!("called 'backburner' with id as {}", id);
         }
-        Commands::Busy { id } => {
-            println!("called 'busy' with id as {}", id);
-        }
+        Commands::Busy { id } => cli::busy::busy(*id),
         Commands::Clean => {
             println!("called 'clean'");
         }
