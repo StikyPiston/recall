@@ -19,6 +19,7 @@ pub fn undo(id: u32) {
                 println!("{}", format!("󰓑 Lost {penalty} XP").yellow());
                 return;
             }
+            return;
         }
     }
 
