@@ -39,10 +39,7 @@ fn main() {
 
     match &cli.command {
         Commands::Add { name, priority, project } => {
-            println!(
-                "called 'add' with name as {}, priority as {}, and project as {:#?}",
-                name, priority, project
-            );
+            cli::add::add(name.to_string(), *priority, project.clone());
         }
         Commands::Backburner { id } => {
             println!("called 'backburner' with id as {}", id);

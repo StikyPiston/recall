@@ -1,7 +1,7 @@
 use std::fs;
 use std::path::Path;
 
-use recall::{home_dir, todo_path, xp_path};
+use recall::{todo_path, xp_path};
 
 // MARK: save/load helpers
 pub fn ensure_file(path: &str, content: &[u8]) {
