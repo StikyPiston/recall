@@ -1,13 +1,13 @@
 use colored::Colorize;
 
-use recall::{load_recall, Task, todo_path};
+use recall::{load_recall, todo_path, Task};
 
 pub fn list() {
     let tasks: Vec<Task> = load_recall(&todo_path());
 
     if tasks.is_empty() {
         println!("{}", "󰄭 All tasks done!".green());
-        return
+        return;
     }
 
     let mut pending: Vec<Task> = Vec::new();
@@ -41,7 +41,7 @@ pub fn list() {
             1 => println!("{}", line.green()),
             2 => println!("{}", line.yellow()),
             3 => println!("{}", line.red()),
-            _ => panic!("Priorities cannot be greater than three")
+            _ => panic!("Priorities cannot be greater than three"),
         }
     }
     // busy tasks
@@ -55,7 +55,7 @@ pub fn list() {
             1 => println!("{}", line.green()),
             2 => println!("{}", line.yellow()),
             3 => println!("{}", line.red()),
-            _ => panic!("Priorities cannot be greater than three")
+            _ => panic!("Priorities cannot be greater than three"),
         }
     }
     // pending tasks
@@ -69,7 +69,7 @@ pub fn list() {
             1 => println!("{}", line.green()),
             2 => println!("{}", line.yellow()),
             3 => println!("{}", line.red()),
-            _ => panic!("Priorities cannot be greater than three")
+            _ => panic!("Priorities cannot be greater than three"),
         }
     }
     // back_burner tasks
@@ -83,7 +83,7 @@ pub fn list() {
             1 => println!("{}", line.green()),
             2 => println!("{}", line.yellow()),
             3 => println!("{}", line.red()),
-            _ => panic!("Priorities cannot be greater than three")
+            _ => panic!("Priorities cannot be greater than three"),
         }
     }
 }

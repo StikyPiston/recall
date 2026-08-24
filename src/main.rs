@@ -1,7 +1,7 @@
 use clap::{Parser, Subcommand};
 
-mod help;
 mod cli;
+mod help;
 
 static VERSION: &str = env!("CARGO_PKG_VERSION");
 
@@ -21,15 +21,23 @@ enum Commands {
         #[arg(value_parser = clap::value_parser!(u8).range(1..=3))]
         priority: u8,
         #[arg(short, long)]
-        project: Option<String>
+        project: Option<String>,
     },
-    Backburner { id: u32 },
-    Busy { id: u32 },
+    Backburner {
+        id: u32,
+    },
+    Busy {
+        id: u32,
+    },
     Clean,
     Clear,
-    Done { id: u32 },
+    Done {
+        id: u32,
+    },
     List,
-    Undo { id: u32 },
+    Undo {
+        id: u32,
+    },
     Xp,
 }
 
@@ -38,7 +46,11 @@ fn main() {
     let cli = Cli::parse();
 
     match &cli.command {
-        Commands::Add { name, priority, project } => {
+        Commands::Add {
+            name,
+            priority,
+            project,
+        } => {
             cli::add::add(name.to_string(), *priority, project.clone());
         }
         Commands::Backburner { id } => {

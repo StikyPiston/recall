@@ -43,8 +43,8 @@ pub fn todo_path() -> String {
                 Ok(false) => home_dir() + "/.recall",
                 Err(_) => home_dir() + "/.recall",
             }
-        },
-        Err(_) => home_dir() + "/.recall"
+        }
+        Err(_) => home_dir() + "/.recall",
     }
 }
 
