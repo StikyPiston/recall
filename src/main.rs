@@ -1,7 +1,6 @@
 use clap::{Parser, Subcommand};
 
 mod cli;
-mod help;
 
 static VERSION: &str = env!("CARGO_PKG_VERSION");
 
