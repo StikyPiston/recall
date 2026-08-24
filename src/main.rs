@@ -59,9 +59,7 @@ fn main() {
         Commands::Done { id } => {
             println!("called 'done' with id as {}", id);
         }
-        Commands::List => {
-            println!("called 'list'");
-        }
+        Commands::List => cli::list::list(),
         Commands::Undo { id } => {
             println!("called 'undo' with id of {}", id);
         }
