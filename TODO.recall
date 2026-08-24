@@ -1,0 +1,86 @@
+[
+  {
+    "name": "add",
+    "prio": 1,
+    "state": 0,
+    "id": 0,
+    "project": "cli"
+  },
+  {
+    "name": "backburner",
+    "prio": 1,
+    "state": 0,
+    "id": 1,
+    "project": "cli"
+  },
+  {
+    "name": "busy",
+    "prio": 1,
+    "state": 0,
+    "id": 2,
+    "project": "cli"
+  },
+  {
+    "name": "clean",
+    "prio": 1,
+    "state": 0,
+    "id": 3,
+    "project": "cli"
+  },
+  {
+    "name": "clear",
+    "prio": 1,
+    "state": 0,
+    "id": 4,
+    "project": "cli"
+  },
+  {
+    "name": "done",
+    "prio": 1,
+    "state": 0,
+    "id": 5,
+    "project": "cli"
+  },
+  {
+    "name": "list",
+    "prio": 1,
+    "state": 0,
+    "id": 6,
+    "project": "cli"
+  },
+  {
+    "name": "root",
+    "prio": 1,
+    "state": 0,
+    "id": 7,
+    "project": "cli"
+  },
+  {
+    "name": "undo",
+    "prio": 1,
+    "state": 0,
+    "id": 8,
+    "project": "cli"
+  },
+  {
+    "name": "xp",
+    "prio": 1,
+    "state": 0,
+    "id": 9,
+    "project": "cli"
+  },
+  {
+    "name": "shared .recall-file parsing for cli and eventual gui",
+    "prio": 3,
+    "state": 0,
+    "id": 10,
+    "project": "lib"
+  },
+  {
+    "name": "xp system",
+    "prio": 2,
+    "state": 0,
+    "id": 11,
+    "project": "xp"
+  }
+]
