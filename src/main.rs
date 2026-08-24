@@ -42,6 +42,7 @@ enum Commands {
 
 fn main() {
     color_eyre::install().unwrap();
+    recall::apply_daily_penalty();
     let cli = Cli::parse();
 
     match &cli.command {

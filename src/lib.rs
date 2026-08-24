@@ -1,3 +1,4 @@
+use colored::Colorize;
 use serde::{Deserialize, Serialize};
 use std::{
     env, fs,
@@ -90,4 +91,50 @@ pub fn decrease_xp(amount: u32) {
     let mut xp = load_xp();
     xp.xp -= amount as i32;
     save_xp(xp);
+}
+
+pub fn apply_daily_penalty() {
+    let mut xp = load_xp();
+
+    let now = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap()
+        .as_secs();
+    let last = xp.last_checked;
+
+    if last == 0 {
+        xp.last_checked = now;
+        save_xp(xp);
+        return;
+    }
+
+    let days = ((now - last) / 86400) as u32;
+    if days <= 0 {
+        return;
+    }
+
+    let tasks = load_recall(&todo_path());
+    let mut pending: u64 = 0;
+    for t in tasks {
+        if t.state == 0 {
+            pending += 1;
+        }
+    }
+
+    if pending == 0 {
+        xp.last_checked = now;
+        save_xp(xp);
+        return;
+    }
+
+    let penalty = days as u64 * pending * 5;
+    xp.xp -= penalty as i32;
+    xp.last_checked = now;
+
+    save_xp(xp);
+
+    println!(
+        "{}",
+        format!("󰓑 {pending} tasks pending, penalty of -{penalty} XP applied").red()
+    )
 }
