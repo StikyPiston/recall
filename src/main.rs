@@ -53,9 +53,7 @@ fn main() {
         } => {
             cli::add::add(name.to_string(), *priority, project.clone());
         }
-        Commands::Backburner { id } => {
-            println!("called 'backburner' with id as {}", id);
-        }
+        Commands::Backburner { id } => cli::backburner::backburner(*id),
         Commands::Busy { id } => cli::busy::busy(*id),
         Commands::Clean => {
             println!("called 'clean'");
