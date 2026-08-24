@@ -65,9 +65,7 @@ fn main() {
         Commands::Clear => {
             println!("called 'clear'");
         }
-        Commands::Done { id } => {
-            println!("called 'done' with id as {}", id);
-        }
+        Commands::Done { id } => cli::done::done(*id),
         Commands::List => cli::list::list(),
         Commands::Undo { id } => cli::undo::undo(*id),
         Commands::Xp => {
