@@ -56,9 +56,7 @@ fn main() {
         Commands::Backburner { id } => cli::backburner::backburner(*id),
         Commands::Busy { id } => cli::busy::busy(*id),
         Commands::Clean => cli::clean::clean(),
-        Commands::Clear => {
-            println!("called 'clear'");
-        }
+        Commands::Clear => cli::clear::clear(),
         Commands::Done { id } => cli::done::done(*id),
         Commands::List => cli::list::list(),
         Commands::Undo { id } => cli::undo::undo(*id),
