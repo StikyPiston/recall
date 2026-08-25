@@ -60,8 +60,6 @@ fn main() {
         Commands::Done { id } => cli::done::done(*id),
         Commands::List => cli::list::list(),
         Commands::Undo { id } => cli::undo::undo(*id),
-        Commands::Xp => {
-            println!("called 'xp'");
-        }
+        Commands::Xp => cli::xp::xp(),
     }
 }

@@ -58,7 +58,7 @@
   {
     "name": "xp",
     "prio": 1,
-    "state": 0,
+    "state": 2,
     "id": 9,
     "project": "cli"
   },
