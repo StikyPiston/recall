@@ -1,48 +1,42 @@
 {
-  description = "Recall devshell and package";
+  description = "rust devshell and package, created by scaffolder";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    naersk = {
+      url = "github:nix-community/naersk";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
+  outputs = { self, nixpkgs, flake-utils, naersk }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
+
+        naersk' = pkgs.callPackage naersk {};
       in {
         devShells.default = pkgs.mkShell {
-          name = "recall-devshell";
+          name = "rust-devshell";
 
           packages = with pkgs; [
-            go
-            gopls
-            gotools
-            delve
+            cargo
+            rustc
+            rustfmt
+            rust-analyzer
+            clippy
+            pkg-config
           ];
         };
 
-        packages.recall = pkgs.buildGoModule {
-          pname = "recall";
-          version = "2026.07.15-a";
-
-          src = self;
-
-          vendorHash = "sha256-g+39YPEaohp4BJjwRXiqUY2viZPimvf1pOjtyAFOjNY=";
-
-          subPackages = [ "." ];
-          ldflags = [ "-s" "-w" ];
-
-          meta = with pkgs.lib; {
-            description = "A minimal to-do list program with a few amenities";
-            license = licenses.mit;
-            platforms = platforms.all;
-          };
+        packages.recall = naersk'.buildPackage {
+          src = ./.;
         };
 
         apps.recall = {
           type = "app";
-          program = "${self.packages.${system}.recall}/bin/recall";
+          program = "${self.packages.${pkgs.stdenv.hostPlatform.system}.recall}/bin/recall";
         };
       });
 }

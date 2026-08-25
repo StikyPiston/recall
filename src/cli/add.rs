@@ -1,0 +1,23 @@
+use recall::{load_recall, save_recall, todo_path, Task};
+use std::collections::HashSet;
+
+pub fn add(name: String, priority: u8, project: Option<String>) {
+    let mut tasks: Vec<Task> = load_recall(&todo_path());
+    let id = {
+        let used: HashSet<u32> = tasks.iter().map(|t| t.id).collect();
+        (0..).find(|&id| !used.contains(&id)).unwrap_or(u32::MAX)
+    };
+
+    tasks.push(Task {
+        name,
+        prio: priority,
+        state: 0,
+        id,
+        project: match project {
+            Some(p) => p,
+            None => "*".to_string(),
+        },
+    });
+
+    save_recall(&todo_path(), tasks);
+}
