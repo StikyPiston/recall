@@ -109,7 +109,7 @@ pub fn apply_daily_penalty() {
     }
 
     let days = ((now - last) / 86400) as u32;
-    if days <= 0 {
+    if days == 0 {
         return;
     }
 
