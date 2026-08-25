@@ -1,5 +1,5 @@
 use colored::Colorize;
-use recall::{Task, load_recall, save_recall, todo_path};
+use recall::{load_recall, save_recall, todo_path, Task};
 
 pub fn clean() {
     let tasks: Vec<Task> = load_recall(&todo_path());

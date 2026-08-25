@@ -1,6 +1,6 @@
 use colored::Colorize;
 
-use recall::{Task, decrease_xp, load_recall, save_recall, todo_path};
+use recall::{decrease_xp, load_recall, save_recall, todo_path, Task};
 
 pub fn backburner(id: u32) {
     let mut tasks: Vec<Task> = load_recall(&todo_path());
